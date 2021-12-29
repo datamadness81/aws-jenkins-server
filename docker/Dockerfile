@@ -4,7 +4,7 @@ USER root
 EXPOSE 8080
 
 # Install Python
-RUN apt-get update -y && apt-get install --no-install-recommends -y\
+RUN apt-get update && apt-get install --no-install-recommends -y \
     python3 \
     python3-pip \
     && rm -rf /var/lib/apt/lists/*
