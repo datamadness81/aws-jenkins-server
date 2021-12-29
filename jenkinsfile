@@ -22,5 +22,11 @@ pipeline {
                 sh 'docker push public.ecr.aws/$AWS_REPOSITORY_ID/$DOCKER_IMAGE'
             }
         }
+        stage('Removing Images and Containers from local') {
+            steps {
+                sh 'docker rm $(docker ps --filter status=exited -q)'
+                sh 'docker rmi $DOCKER_IMAGE public.ecr.aws/$AWS_REPOSITORY_ID/$DOCKER_IMAGE'
+            }
+        }
     }
 }
