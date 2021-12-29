@@ -3,7 +3,6 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID = credentials('aws_key_access')
         AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key')
-        AWS_ACCOUNT_ID = credentials('aws_account_id')
         AWS_DEFAULT_REGION = credentials('aws_region')
         AWS_REPOSITORY_ID = 'v4d6h5l3'
         DOCKER_IMAGE = 'jenkins:devops'
@@ -18,7 +17,7 @@ pipeline {
         }
         stage('Adding Docker image into AWS Registry') {
             steps {
-                sh 'aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com'
+                sh 'aws ecr-public get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin public.ecr.aws/$AWS_REPOSITORY_ID'
                 sh 'docker tag $DOCKER_IMAGE public.ecr.aws/$AWS_REPOSITORY_ID/$DOCKER_IMAGE'
                 sh 'docker push public.ecr.aws/$AWS_REPOSITORY_ID/$DOCKER_IMAGE'
             }
