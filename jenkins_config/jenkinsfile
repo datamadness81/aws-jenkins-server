@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('aws_key_access')
+        AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key')
+        AWS_DEFAULT_REGION = credentials('aws_region')
+    }
+    stages {
+        stage('Deploy Jenkins Server Through Terraform') {
+            steps {
+                dir('tf_jenkins_server') {
+                    sh 'terraform init -upgrade'
+                    sh 'terraform validate'
+                    sh 'terraform plan'
+                    sh 'terraform apply -auto-approve'
+                    sh 'sleep 5m'
+                    sh 'yes | cp -r inventory.yaml ../ans_jenkins/inventory.yaml'
+                    sh 'rm -rf inventory.yaml'
+                }
+            }
+        }
+        stage('Config Jenkins Server Through Ansible') {
+            steps {
+                dir('ans_jenkins') {
+                    ansiblePlaybook credentialsId: 'ubuntu', disableHostKeyChecking: true, extras: '-vvv', inventory: 'inventory.yaml', playbook: 'playbook.yaml'
+                }
+            }
+        }
+    }
+    post {
+        failure {
+            dir('tf_jenkins_server') {
+                sh 'terraform destroy -auto-approve'
+            }
+        }
+    }
+}

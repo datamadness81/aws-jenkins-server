@@ -1,1 +1,3 @@
 .groovylintrc.json
+.terraform*
+terraform.tfstate*
