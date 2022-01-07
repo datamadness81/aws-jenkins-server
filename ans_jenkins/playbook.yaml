@@ -5,11 +5,10 @@
 
   tasks:
     - name: Install Docker
-      command:
-        argv:
-          - curl -sL https://get.docker.com | sed 's/9)/10)/' | sh
-          - curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose && chmod +x /usr/bin/docker-compose
-          - usermod -aG docker jenkins
+      command: curl -sL https://get.docker.com | sed 's/9)/10)/' | sh
+
+    - name: Install Docker Compose
+      command: curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose && chmod +x /usr/bin/docker-compose
 
     - name: Install AWS CLI
       command:
@@ -50,4 +49,4 @@
 
     - name: Remove dependencies that are no longer required
       apt:
-        autoremove: yes  
+        autoremove: yes
