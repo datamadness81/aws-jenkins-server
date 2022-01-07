@@ -15,6 +15,7 @@
         - ca-certificates
         - software-properties-common
         - python3-pip
+        - python-pip
         - python3-setuptools
         - gnupg
 
