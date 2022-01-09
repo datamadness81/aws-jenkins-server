@@ -10,7 +10,6 @@
         repo: ppa:deadsnakes/ppa
         state: present 
         update_cache: yes
-        upgrade: dist
 
     - name: Install required system packages
       apt:
