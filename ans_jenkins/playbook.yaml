@@ -5,6 +5,12 @@
 
   tasks:
     # Prerequisites
+    - name: Update deadsnakes PPA Repository
+      apt_repository:
+        repo: ppa:deadsnakes/ppa
+        state: present 
+        update_cache: yes
+
     - name: Install required system packages
       apt:
         name: "{{ item }}"
@@ -14,6 +20,7 @@
         - apt-transport-https
         - ca-certificates
         - software-properties-common
+        - openjdk-11-jdk
         - python3.9
         - python3-pip
         - python-pip
@@ -32,6 +39,7 @@
       apt_repository:
         repo: deb https://download.docker.com/linux/ubuntu focal stable
         state: present
+        update_cache: yes
 
     - name: Install docker
       apt:
