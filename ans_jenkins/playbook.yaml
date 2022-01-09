@@ -22,7 +22,8 @@
     - name: Install python libraries
       pip:
         name: "{{ item }}"
-        state: latest
+        extra_args: --upgrade
+        state: forcereinstall
       loop:
         - boto
         - boto3
