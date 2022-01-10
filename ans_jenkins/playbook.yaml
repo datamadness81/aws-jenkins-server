@@ -36,6 +36,7 @@
         - python3-pip
         - python3-setuptools
         - gnupg
+        - gnupg2
 
     - name: Install python libraries
       pip:
@@ -63,7 +64,6 @@
         name: "{{ item }}"
         state: latest
         update_cache: yes
-        
       loop:
         - docker-ce
         - docker-ce-cli
@@ -91,17 +91,62 @@
         mode: "u+x,g+x"
 
     # Ansible
-    - name: Install Ansible
-      command: python3 -m pip install ansible --upgrade
-
-    # Installation clean
-    - name: Remove Temp Files
-      command: rm -rf /var/lib/apt/lists/*
-
-    - name: Remove useless packages from the cache
+    - name: Install ansible
       apt:
-        autoclean: yes
+        name: ansible
+        state: latest
+        update_cache: yes
 
-    - name: Remove dependencies that are no longer required
+    # Jenkins
+    - name: Add Jenkins repository key
+      apt_key:
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+        state: present
+
+    - name: Add Jenkins repository
+      apt_repository:
+        repo: deb http://pkg.jenkins.io/debian-stable binary/
+        state: present
+        filename: jenkins.list
+        update_cache: yes
+
+    - name: Install jenkins
       apt:
-        autoremove: yes
+        name: jenkins
+        state: latest
+        update_cache: yes    
+
+    # Kubernetes
+    - name: Add kubernetes repository key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+        
+    - name: Add kubernetes repository
+      apt_repository:
+        repo: deb https://apt.kubernetes.io/ kubernetes-focal main
+        state: present
+        filename: kubernetes.list
+        update_cache: yes
+
+    - name: Install kubernetes binaries
+      apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+      loop:
+        - kubectl
+
+
+    # AWS CLI
+    - name: Download AWS CLI
+      get_url:
+        url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+        dest: /usr/bin/awscliv2.zip
+
+    - name: Install AWS CLI 
+      shell:
+        cmd: "{{ item }}"
+      loop:
+        - unzip /usr/bin/awscliv2.zip
+        - /usr/bin/aws/install
