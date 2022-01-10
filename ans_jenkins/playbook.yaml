@@ -37,7 +37,7 @@
         - python3-setuptools
         - python-boto
         - gnupg
-        - python3.9
+        - python3.7
 
     - name: Install Python libraries
       pip:
