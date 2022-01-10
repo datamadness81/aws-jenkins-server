@@ -8,11 +8,7 @@ data "aws_ami" "jenkins_server" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd*"]
+    values = ["ubuntu/images/hvm-ssd*server-20211129"]
   }
 
-  filter {
-    name   = "image-id"
-    values = ["*04505e74c0741db8d"]
-  }
 }
