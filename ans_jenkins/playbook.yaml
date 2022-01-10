@@ -78,12 +78,6 @@
         - "ubuntu"
         - "jenkins"
 
-    - name: Check if docker is enabled
-      service:
-        name: docker
-        state: started
-        enabled: yes
-
     - name: Install docker-compose
       get_url:
         url: https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-linux-x86_64
@@ -150,3 +144,16 @@
       loop:
         - unzip /usr/bin/awscliv2.zip
         - /usr/bin/aws/install
+
+    # Start services
+    - name: Start and review the services are running
+      systemd:
+        name: "{{ item }}"
+        daemon_reaload: yes
+        enabled: yes
+        state: started
+      loop:
+        - docker
+        - ansible
+        - jenkins
+        - kubectl
