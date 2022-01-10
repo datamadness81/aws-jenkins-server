@@ -138,6 +138,7 @@
       get_url:
         url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
         dest: /usr/bin/awscliv2.zip
+        force: yes
 
     - name: Install AWS CLI 
       shell:

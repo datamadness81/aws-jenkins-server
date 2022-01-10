@@ -3,5 +3,5 @@
 #----------------------------------------------------
 
 output "my_ip" {
-  value = data.http.ip.body
+  value       = data.http.ip.body
 }
