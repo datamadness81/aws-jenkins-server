@@ -28,7 +28,7 @@ variable "itype" {
 variable "my_IP" {
   description = "Local IP address which will connect to the Jenkins Server"
   type        = string
-  default     = output.my_ip.value
+  default     = "181.54.0.130/32"
 }
 
 variable "vpc_cidr_ipv4" {
