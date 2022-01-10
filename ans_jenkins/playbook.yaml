@@ -144,7 +144,7 @@
         cmd: "{{ item }}"
       loop:
         - unzip /usr/bin/awscliv2.zip
-        - /usr/bin/aws/install
+        - ./aws/install
 
     # Start services
     - name: Start and review the services are running
