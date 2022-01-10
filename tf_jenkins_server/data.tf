@@ -7,6 +7,6 @@ data "aws_ami" "jenkins_server" {
   owners      = ["amazon"]
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20211129"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04*"]
   }
 }
