@@ -150,7 +150,7 @@
     - name: Start and review the services are running
       systemd:
         name: "{{ item }}"
-        daemon_reaload: yes
+        daemon_reload: yes
         enabled: yes
         state: started
       loop:
