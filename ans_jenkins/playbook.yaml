@@ -39,9 +39,16 @@
         - gnupg
         - python3.7
 
-    - name: Install Python libraries
+    - name: Upgrade pip
       shell: 
-        cmd: pip install docker && pip3 install boto3
+        cmd: pip install --upgrade pip
+
+    - name: Install python libraries
+      pip: 
+        name: "{{ item }}"
+      loop:
+        - docker
+        - boto3
 
     # Docker
     - name: Add Docker GPG apt Key
