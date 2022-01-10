@@ -18,3 +18,7 @@ data "aws_ami" "jenkins_server" {
   owners = ["099720109477"]
 
 }
+
+data "http" "ip" {
+  url = "https://ifconfig.me/ip"
+}
