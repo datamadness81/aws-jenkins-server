@@ -118,7 +118,7 @@
         
     - name: Add kubernetes repository
       apt_repository:
-        repo: deb https://apt.kubernetes.io/ kubernetes-focal main
+        repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
         state: present
         filename: kubernetes.list
         update_cache: yes
