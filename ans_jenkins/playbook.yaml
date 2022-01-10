@@ -40,11 +40,7 @@
         - python3.7
 
     - name: Install Python libraries
-      command:
-        argv:
-          - ls -lrta
-          - pip install docker
-          - pip3 install boto3 
+      command: pip install docker && pip3 install boto3
 
     # Docker
     - name: Add Docker GPG apt Key
