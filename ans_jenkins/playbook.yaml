@@ -156,6 +156,4 @@
         state: started
       loop:
         - docker
-        - ansible
         - jenkins
-        - kubectl
