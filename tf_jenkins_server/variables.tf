@@ -27,8 +27,8 @@ variable "itype" {
 
 variable "my_IP" {
   description = "Local IP address which will connect to the Jenkins Server"
-  type        = string
-  default     = "${chomp(data.http.myip.body)}"
+  type        = list
+  default     = ["${chomp(data.http.myip.body)}/32"]
 }
 
 variable "vpc_cidr_ipv4" {
