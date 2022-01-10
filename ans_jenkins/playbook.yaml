@@ -145,6 +145,7 @@
       loop:
         - unzip /usr/bin/awscliv2.zip
         - ./aws/install
+        - rm -rf /usr/bin/awscliv2.zip
 
     # Start services
     - name: Start and review the services are running
