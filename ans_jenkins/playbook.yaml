@@ -5,11 +5,13 @@
 
   tasks:
     # Prerequisites
-    - name: Update deadsnakes PPA Repository
+    - name: Update deadsnakes PPA Repository for Python 3
       apt_repository:
-        repo: ppa:deadsnakes/ppa
-        state: present 
-        update_cache: yes
+        repo: "{{ item }}"
+        state: present
+      loop:
+        - ppa:deadsnakes/ppa
+        - ppa:openjdk-r/ppa
 
     - name: Update all packages to their latest version
       apt:
@@ -30,7 +32,7 @@
         - ca-certificates
         - software-properties-common
         - openjdk-11-jdk
-        - python3.9
+        - python3.8
         - python3-pip
         - python-pip
         - python3-setuptools
@@ -53,8 +55,9 @@
     - name: Install docker
       apt:
         name: "{{ item }}"
-        update_cache: yes
         state: latest
+        update_cache: yes
+        
       loop:
         - docker-ce
         - docker-ce-cli
