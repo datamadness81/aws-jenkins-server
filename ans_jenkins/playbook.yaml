@@ -37,14 +37,14 @@
         - python3-setuptools
         - python-boto
         - gnupg
-        - python3.7
+        - python3.8
+        - python-boto3
 
     - name: Install Python libraries
       pip:
         name: "{{ item }}"
         extra_args: --upgrade
       loop:
-        - boto3
         - docker
 
     # Docker
