@@ -60,5 +60,5 @@ variable "ssh_key" {
 variable "policy" {
   description = "Default policy to be attached to the devops role"
   type        = string
-  default     = "arn:aws:iam::aws:policy/AdministratorAccess"
+  default     = "arn:aws:iam::aws:policy/job-function/SystemAdministrator"
 }
