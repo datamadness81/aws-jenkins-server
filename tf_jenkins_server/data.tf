@@ -7,9 +7,12 @@ data "aws_ami" "jenkins_server" {
   owners      = ["amazon"]
 
   filter {
-    name   = "image-id"
-    values = ["ami-04505e74c0741db8d"]
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd*"]
   }
 
-
+  filter {
+    name   = "image-id"
+    values = ["*04505e74c0741db8d"]
+  }
 }
