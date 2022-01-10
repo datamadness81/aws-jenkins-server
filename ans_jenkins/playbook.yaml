@@ -37,6 +37,7 @@
         - python3-setuptools
         - gnupg
         - gnupg2
+        - unzip
 
     - name: Install python libraries
       pip:
