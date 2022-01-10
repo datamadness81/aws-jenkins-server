@@ -32,17 +32,19 @@
         - ca-certificates
         - software-properties-common
         - openjdk-11-jdk
-        - python3-pip
-        - python-pip
-        - python3-setuptools
-        - python-boto
-        - python-boto3
-        - gnupg
         - python3.8
+        - python3-pip
+        - python3-setuptools
+        - gnupg
 
     - name: Install python libraries
-      shell: 
-        cmd: pip install docker
+      pip:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - docker
+        - boto
+        - boto3
 
     # Docker
     - name: Add Docker GPG apt Key
