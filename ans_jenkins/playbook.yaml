@@ -32,12 +32,12 @@
         - ca-certificates
         - software-properties-common
         - openjdk-11-jdk
-        - virtualenv
         - python3-pip
         - python-pip
         - python3-setuptools
         - python-boto
         - gnupg
+        - python3.9
 
     - name: Install Python libraries
       pip:
