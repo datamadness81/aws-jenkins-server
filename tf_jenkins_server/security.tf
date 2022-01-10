@@ -22,7 +22,7 @@ resource "aws_security_group" "jenkins_sg" {
     protocol    = "TCP"
     from_port   = 8080
     to_port     = 8080
-    cidr_blocks = [data.http.ip.body/32]
+    cidr_blocks = ["${data.http.ip.body}/32"]
   }
 
   egress {
