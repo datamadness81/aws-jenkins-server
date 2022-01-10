@@ -38,6 +38,7 @@
         - gnupg
         - gnupg2
         - unzip
+        - awscli
 
     - name: Install python libraries
       pip:
@@ -131,22 +132,6 @@
         update_cache: yes
       loop:
         - kubectl
-
-
-    # AWS CLI
-    - name: Download AWS CLI
-      get_url:
-        url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
-        dest: /usr/bin/awscliv2.zip
-        force: yes
-
-    - name: Install AWS CLI 
-      shell:
-        cmd: "{{ item }}"
-      loop:
-        - unzip /usr/bin/awscliv2.zip
-        - ./aws/install
-        - rm -rf /usr/bin/awscliv2.zip
 
     # Start services
     - name: Start and review the services are running

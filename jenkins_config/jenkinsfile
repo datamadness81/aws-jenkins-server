@@ -30,9 +30,12 @@ pipeline {
     post {
         failure {
             dir('tf_jenkins_server') {
-                //sh 'terraform destroy -auto-approve'
-                sh 'echo jenkins failure'
+                sh 'terraform destroy -auto-approve'
+                echo 'Pipeline process failed, please review the logs'
             }
+        }
+        success {
+            echo 'Pipeline finished successfully!'
         }
     }
 }
