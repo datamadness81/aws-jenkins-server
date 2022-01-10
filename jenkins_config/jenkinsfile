@@ -27,11 +27,12 @@ pipeline {
             }
         }
     }
-   /*  post {
+    post {
         failure {
             dir('tf_jenkins_server') {
                 sh 'terraform destroy -auto-approve'
+                sh 'echo jenkins failure'
             }
         }
-    } */
+    }
 }
