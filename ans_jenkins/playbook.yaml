@@ -42,10 +42,7 @@
 
     - name: Install Python libraries
       pip:
-        name: "{{ item }}"
-        extra_args: --upgrade
-      loop:
-        - docker
+        name: docker
 
     # Docker
     - name: Add Docker GPG apt Key
