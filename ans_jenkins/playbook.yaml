@@ -5,13 +5,13 @@
 
   tasks:
     # Prerequisites
-    - name: Update deadsnakes PPA Repository for Python 3
+    - name: Update ppa repositories
       apt_repository:
         repo: "{{ item }}"
         state: present
       loop:
-        - ppa:deadsnakes/ppa
-        - ppa:openjdk-r/ppa
+        - ppa:deadsnakes/ppa # Python
+        - ppa:openjdk-r/ppa # Java
 
     - name: Update all packages to their latest version
       apt:
@@ -32,6 +32,7 @@
         - ca-certificates
         - software-properties-common
         - openjdk-11-jdk
+        - virtualenv
         - python3-pip
         - python-pip
         - python3-setuptools
