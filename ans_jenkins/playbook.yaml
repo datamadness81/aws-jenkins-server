@@ -36,12 +36,13 @@
         - python-pip
         - python3-setuptools
         - python-boto
+        - python-boto3
         - gnupg
-        - python3.7
+        - python3.8
 
     - name: Install python libraries
       shell: 
-        cmd: pip3 install boto3
+        cmd: pip install docker
 
     # Docker
     - name: Add Docker GPG apt Key
