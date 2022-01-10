@@ -19,6 +19,6 @@ data "aws_ami" "jenkins_server" {
 
 }
 
-data "external" "curlip" {
-    program = ["sh", "-c", "echo '{ \"extip\": \"'$(curl -s https://ifconfig.me)'\" }'"]
+data "http" "myip" {
+  url = "https://ifconfig.me"
 }
