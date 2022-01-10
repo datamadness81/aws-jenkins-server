@@ -6,7 +6,7 @@ data "aws_ami" "jenkins_server" {
   most_recent = true
   owners      = ["amazon"]
   filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04*"]
+    image_id   = "ImageId"
+    values = ["ami-04505e74c0741db8d"]
   }
 }
