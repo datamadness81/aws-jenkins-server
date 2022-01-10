@@ -61,38 +61,3 @@ resource "aws_security_group" "ssh_jenkins_sg" {
     Name = var.resource_name
   }
 }
-
-#----------------------IAM------------------------
-
-resource "aws_iam_role" "devops_role" {
-  name = "devops_role"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        }
-      },
-    ]
-  })
-
-  tags = {
-    Name = var.resource_name
-  }
-}
-
-resource "aws_iam_policy_attachment" "devops_policy_role" {
-  name       = "devops_attachment"
-  roles      = [aws_iam_role.devops_role.name]
-  policy_arn = var.policy
-}
-
-resource "aws_iam_instance_profile" "devops_profile" {
-  name = "devops_profile"
-  role = aws_iam_role.devops_role.name
-}

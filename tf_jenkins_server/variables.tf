@@ -28,7 +28,7 @@ variable "itype" {
 variable "my_IP" {
   description = "Local IP address which will connect to the Jenkins Server"
   type        = string
-  default     = "181.54.0.130/32"
+  default     = data.external.curlip.result["extip"]
 }
 
 variable "vpc_cidr_ipv4" {
@@ -55,10 +55,4 @@ variable "ssh_key" {
   description = "Public PEM key installed in the AWS instances for SSH access"
   type        = string
   default     = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCqT1bgBw6I/94Y9I2dqjsh018Oq/JZxq7tvFfk+LJF2rHoA6dKi3yuOkyXeCvOMAtgBV1dl5noqB1v0MkIezseI2VcqYgXPOM4QQa5LmU+4NA/CnGJITqsP17Jc5FGyZVZBHFnwOyIk6mwLAa0IPOXW+2EbC4Ivs0ZcCiR083KamJ2nwJ4QrbTHO5X6ca6B9aNRwHxeVbvSTIuVB/WPv6DNOQxmF7id8F5vPwm7rgNWeDUvuFob76MgQ8LAdlNmdIDbycmYkCZN3OC2jZSZm5r9ga+rVp5PlDKK/atBQ2JCpd//zXpIu9TVd7CFGMa6PWFRx9i7mQs4gRbaVEZZfr6i3F5YYDQxgOzRbOL1ZRPPepjxeNmPefsrlGeOTvg0lLCxyZ0M6aSWGmymxSKvfnEriQoRJqOkp42D91LXpAKhSHcDwVLM8eOMQarHHPDVjOXVzkamc5xaAuv/lFG2+GnHExxCatJX8iSNJ91B4YHetQqRRTe+/8BZLd1TihpBTM= jhon.ramirez@CO-IT020749"
-}
-
-variable "policy" {
-  description = "Default policy to be attached to the devops role"
-  type        = string
-  default     = "arn:aws:iam::aws:policy/job-function/SystemAdministrator"
 }

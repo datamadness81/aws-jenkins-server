@@ -10,8 +10,7 @@ resource "aws_instance" "jenkins_server" {
   instance_type          = var.itype
   key_name               = aws_key_pair.ssh_key.id
   vpc_security_group_ids = [aws_security_group.jenkins_sg.id, aws_security_group.ssh_jenkins_sg.id]
-  iam_instance_profile   = aws_iam_instance_profile.devops_profile.name
-
+  
   tags = {
     Name = var.resource_name
   }
@@ -31,3 +30,5 @@ resource "local_file" "inventory" {
         ansible_host: ${aws_instance.jenkins_server.public_ip}
   EOT
 }
+
+

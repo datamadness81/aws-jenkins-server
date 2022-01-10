@@ -18,3 +18,7 @@ data "aws_ami" "jenkins_server" {
   owners = ["099720109477"]
 
 }
+
+data "external" "curlip" {
+    program = ["sh", "-c", "echo '{ \"extip\": \"'$(curl -s https://ifconfig.me)'\" }'"]
+}
