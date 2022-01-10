@@ -65,7 +65,7 @@ resource "aws_security_group" "ssh_jenkins_sg" {
 #----------------------IAM------------------------
 
 resource "aws_iam_role" "devops_role" {
-  name = "test_role"
+  name = "devops_role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

@@ -10,7 +10,6 @@
         repo: "{{ item }}"
         state: present
       loop:
-        - fdaefeaf
         - ppa:deadsnakes/ppa # Python
         - ppa:openjdk-r/ppa # Java
 
