@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'master'
+    }
     environment {
         AWS_ACCESS_KEY_ID = credentials('aws_key_access')
         AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key')
@@ -8,29 +10,29 @@ pipeline {
     stages {
         stage('Deploy Jenkins Server Through Terraform') {
             steps {
-                dir('tf_jenkins_server') {
+                dir('terraform') {
                     sh 'terraform init -upgrade'
                     sh 'terraform validate'
                     sh 'terraform plan'
                     sh 'terraform apply -auto-approve'
                     sh 'sleep 1m'
-                    sh 'yes | cp -r inventory.yaml ../ans_jenkins/inventory.yaml'
+                    sh 'yes | cp -r inventory.yaml ../ansible/inventory.yaml'
                     sh 'rm -rf inventory.yaml'
                 }
             }
         }
         stage('Config Jenkins Server Through Ansible') {
             steps {
-                dir('ans_jenkins') {
+                dir('ansible') {
                     ansiblePlaybook credentialsId: 'ubuntu', disableHostKeyChecking: true, extras: '-vvv', inventory: 'inventory.yaml', playbook: 'playbook.yaml'
                 }
             }
         }
     }
     post {
-        failure {
-            dir('tf_jenkins_server') {
-                //sh 'terraform destroy -auto-approve'
+        failure { // Si falla algun stage/step borra la infraestructura creada
+            dir('terraform') {
+                sh 'terraform destroy -auto-approve'
                 echo 'Pipeline process failed, please review the logs'
             }
         }

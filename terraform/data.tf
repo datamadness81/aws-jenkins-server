@@ -19,6 +19,7 @@ data "aws_ami" "jenkins_server" {
 
 }
 
+# Con este comando obtenemos la ip publica del local, la cual es necesaria para configurar los ingress de los grupos de seguridad
 data "http" "ip" {
   url = "https://ifconfig.me/ip"
 }

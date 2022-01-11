@@ -22,7 +22,7 @@ resource "aws_security_group" "jenkins_sg" {
     protocol    = "TCP"
     from_port   = 8080
     to_port     = 8080
-    cidr_blocks = ["${data.http.ip.body}/32"]
+    cidr_blocks = ["${data.http.ip.body}/32"] # Esto toma la ip local que sera la unica habilitada para ingresar al server
   }
 
   egress {
@@ -46,7 +46,7 @@ resource "aws_security_group" "ssh_jenkins_sg" {
     protocol    = "TCP"
     from_port   = 22
     to_port     = 22
-    cidr_blocks = ["${data.http.ip.body}/32"]
+    cidr_blocks = ["${data.http.ip.body}/32"]  # Esto toma la ip local que sera la unica habilitada para ingresar al server
   }
 
   egress {

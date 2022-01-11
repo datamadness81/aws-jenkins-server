@@ -21,6 +21,7 @@ resource "aws_instance" "jenkins_server" {
   }
 }
 
+# Archivo inventory necesario para aplicar las configuraciones que se haran con ansible luego de implementar la intancia EC2
 resource "local_file" "inventory" {
   filename = "inventory.yaml"
   content  = <<-EOT

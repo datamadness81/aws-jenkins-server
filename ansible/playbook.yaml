@@ -4,7 +4,7 @@
   become: true
 
   tasks:
-    # Prerequisites
+    # Prerequisitos necesarios para instalar las herramientas devops
     - name: Update ppa repositories
       apt_repository:
         repo: "{{ item }}"
@@ -20,7 +20,7 @@
 
     - name: Upgrade the packages
       apt:
-        upgrade: dist    
+        upgrade: dist
 
     - name: Install required system packages
       apt:
@@ -37,19 +37,20 @@
         - python3-setuptools
         - gnupg
         - gnupg2
-        - unzip
-        - awscli
 
-    - name: Install python libraries
+    - name: Install python libraries $ awscli
       pip:
         name: "{{ item }}"
         state: latest
+        executable: pip3.8
+        extra_args: --upgrade
       loop:
         - docker
         - boto
         - boto3
-        
-     # Ansible
+        - awscli
+
+      # Ansible
     - name: Install ansible
       apt:
         name: ansible
@@ -117,7 +118,7 @@
       apt_key:
         url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
         state: present
-        
+
     - name: Add kubernetes repository
       apt_repository:
         repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
@@ -143,3 +144,9 @@
       loop:
         - docker
         - jenkins
+
+    # Clean the system
+    - name: Clean/remove useless packages
+      apt:
+        autoclean: yes
+        autoremove: yes
