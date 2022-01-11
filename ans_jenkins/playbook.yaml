@@ -112,7 +112,7 @@
         state: latest
         update_cache: yes
 
-    - name: Create .ssh folder
+    - name: Jenkins agent config
       shell:
         cmd: "{{ item }}"
       loop:
