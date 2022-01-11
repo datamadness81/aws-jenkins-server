@@ -112,11 +112,16 @@
         state: latest
         update_cache: yes
 
+    - name: Create .ssh dir
+      shell: mkdir -p .ssh
+      args:
+        chdir: /var/lib/jenkins/
+
     - name: Jenkins agent config
       shell:
         cmd: "{{ item }}"
-        chdir: /var/lib/jenkins/
-        creates: .ssh/known_hosts
+        chdir: /var/lib/jenkins/.ssh
+        creates: known_hosts
       loop:
         - ssh-keyscan -H {{ ansible_host }} >> .ssh/known_hosts
         - chown -R jenkins:jenkins .ssh/
