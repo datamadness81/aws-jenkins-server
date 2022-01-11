@@ -48,6 +48,13 @@
         - docker
         - boto
         - boto3
+        
+     # Ansible
+    - name: Install ansible
+      apt:
+        name: ansible
+        state: latest
+        update_cache: yes
 
     # Docker
     - name: Add Docker GPG apt Key
@@ -86,13 +93,6 @@
         dest: /usr/bin/docker-compose
         mode: "u+x,g+x"
 
-    # Ansible
-    - name: Install ansible
-      apt:
-        name: ansible
-        state: latest
-        update_cache: yes
-
     # Jenkins
     - name: Add Jenkins repository key
       apt_key:
@@ -110,7 +110,15 @@
       apt:
         name: jenkins
         state: latest
-        update_cache: yes    
+        update_cache: yes
+
+    - name: Create .ssh folder
+      shell:
+        cmd: "{{ item }}"
+      loop:
+        - mkdir -p /var/lib/jenkins/.ssh
+        - ssh-keyscan -H {{ ansible_host }} >> /var/lib/jenkins/.ssh/known_hosts
+        - chown -R jenkins:jenkins /var/lib/jenkins/.ssh
 
     # Kubernetes
     - name: Add kubernetes repository key
