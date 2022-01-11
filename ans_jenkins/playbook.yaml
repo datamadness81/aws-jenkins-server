@@ -115,10 +115,11 @@
     - name: Jenkins agent config
       shell:
         cmd: "{{ item }}"
+        chdir: /var/lib/jenkins/
+        creates: .ssh/known_hosts
       loop:
-        - mkdir -p /var/lib/jenkins/.ssh
-        - ssh-keyscan -H {{ ansible_host }} >> /var/lib/jenkins/.ssh/known_hosts
-        - chown -R jenkins:jenkins /var/lib/jenkins/.ssh
+        - ssh-keyscan -H {{ ansible_host }} >> .ssh/known_hosts
+        - chown -R jenkins:jenkins .ssh/
 
     # Kubernetes
     - name: Add kubernetes repository key
