@@ -42,7 +42,7 @@
       pip:
         name: "{{ item }}"
         state: latest
-        executable: pip3.8
+        executable: pip3
         extra_args: --upgrade
       loop:
         - docker
