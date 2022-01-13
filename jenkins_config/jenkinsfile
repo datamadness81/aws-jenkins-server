@@ -9,7 +9,7 @@ pipeline {
         stage('Deploy Jenkins server with Terraform') {
             steps {
                 dir('terraform') {
-                    sh 'terraform init -upgrade'
+                    sh 'terraform ini -upgrade'
                     sh 'terraform validate'
                     sh 'terraform plan'
                     sh 'terraform apply -auto-approve'
