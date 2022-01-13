@@ -1,3 +1,4 @@
 .groovylintrc.json
 .terraform*
 terraform.tfstate*
+_jenkinsfile

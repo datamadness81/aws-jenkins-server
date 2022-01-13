@@ -50,7 +50,7 @@
         - boto3
         - awscli
 
-      # Ansible
+    # Ansible
     - name: Install ansible
       apt:
         name: ansible
@@ -134,7 +134,25 @@
       loop:
         - kubectl
 
-    # Start services
+     # Terraform
+    - name: Add terraform repository key
+      apt_key:
+        url: https://apt.releases.hashicorp.com/gpg
+        state: present
+
+    - name: Add terraform repository
+      apt_repository:
+        repo: deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main
+        state: present
+        update_cache: yes
+
+    - name: Install terraform
+      apt:
+        name: terraform
+        state: latest
+        update_cache: yes       
+
+     # Start services
     - name: Start and review the services are running
       systemd:
         name: "{{ item }}"

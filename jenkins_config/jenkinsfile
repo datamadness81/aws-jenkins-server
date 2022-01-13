@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'master'
-    }
+    agent any
     environment {
         AWS_ACCESS_KEY_ID = credentials('aws_key_access')
         AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key')
@@ -25,6 +23,9 @@ pipeline {
                     sh 'terraform destroy -auto-approve'
                     echo 'Infrastructure deployment failed, please review the logs'
                 }
+                success {
+                    echo 'Jenkins server infraestructure successfully implemented!'
+                }
             }
         }
         stage('Configure Jenkins server with Ansible') {
@@ -33,27 +34,12 @@ pipeline {
                     ansiblePlaybook credentialsId: 'ubuntu', disableHostKeyChecking: true, extras: '-vvv', inventory: 'inventory.yaml', playbook: 'playbook.yaml'
                 }
             }
-        }
-        stage('Checking Jenkins server') {
-            agent {
-                label 'ssh'
-            }
-            steps {
-                echo 'Checking Jenkins server automation tools...'
-                sh 'ansible --version'
-                sh 'docker --version'
-                sh 'systemctl status jenkins'
-                sh 'kubectl help'
-                sh 'aws --version'
-                sh 'git version'
-            }
             post {
-                success {
-                    echo 'Great! the server is 100% functional!'
-                    sh 'curl http://ifconfig.me'
-                }
                 failure {
-                    echo 'Jenkins server deployment cannot be confirmed, please check the logs'
+                    echo 'Jenkins server configuration failed, please review the logs'
+                }
+                success {
+                    echo 'Jenkins server configuration successfully implemented!'
                 }
             }
         }
