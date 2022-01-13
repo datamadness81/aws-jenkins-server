@@ -142,7 +142,7 @@
 
     - name: Add terraform repository
       apt_repository:
-        repo: deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main
+        repo: deb [arch=amd64] https://apt.releases.hashicorp.com focal main
         state: present
         update_cache: yes
 
