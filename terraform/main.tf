@@ -5,7 +5,7 @@
 #---------------------JENKINS SERVER-----------------------
 
 resource "aws_instance" "jenkins_server" {
-  ami                    = data.aws_ami.jenkins_
+  ami                    = data.aws_ami.jenkins_server.id
   subnet_id              = aws_subnet.jen_pub_sub.id
   instance_type          = var.itype
   key_name               = aws_key_pair.ssh_key.id
